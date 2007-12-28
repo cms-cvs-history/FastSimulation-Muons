@@ -1,0 +1,19 @@
+module l1ParamMuons = FastL1MuonProducer {
+
+    # Set the following to false if you want to use the default CLHEP
+    # random engine
+    bool UseTRandomEngine = true
+    
+    # Muons
+    PSet MUONS = {	
+
+	// The muon simtrack's must be taken from there
+	InputTag simModule = "famosSimHits:MuonSimTracks"
+	
+	// Simulate  only simtracks in this eta range
+	double MinEta = -2.4
+	double MaxEta =  2.4
+
+    }
+    
+}

@@ -1,0 +1,31 @@
+module L3Muons = FastL3MuonProducer {
+
+    InputTag MuonCollectionLabel = hltL2Muons:UpdatedAtVtx
+    bool MuonTrajectoryAvailable = true
+    
+    using MuonServiceProxy
+    
+    using MuonTrackLoaderForL3
+
+    PSet L3TrajBuilderParameters = {
+	using GlobalTrajectoryBuilderCommon
+	
+	bool TkTrajectoryAvailable = true
+	string KFFitter = "L3MuKFFitter"
+
+	InputTag TrackerTrajectories = "GlobalPixelGSWithMaterialTracks"
+	InputTag SimulatedMuons = "famosSimHits:MuonSimTracks"
+	
+	string TkTrackBuilder = "muonCkfTrajectoryBuilder"
+#	string TkTrackBuilder = "muonRSTrajectoryBuilder"
+	
+       # include  "RecoMuon/TrackerSeedGenerator/data/TSGFromPixelPairs.cfi"
+       #include  "RecoMuon/TrackerSeedGenerator/data/TSGFromMixedPairs.cfi"
+       #include  "RecoMuon/TrackerSeedGenerator/data/TSGSmart.cff"
+       #include  "RecoMuon/TrackerSeedGenerator/data/TSGFromPropagation.cfi"
+       #include  "RecoMuon/TrackerSeedGenerator/data/TSGFromPixelTriplets.cfi"
+       #include  "RecoMuon/TrackerSeedGenerator/data/TSGForRoadSearchIO.cfi"
+       #include  "RecoMuon/TrackerSeedGenerator/data/TSGForRoadSearchOI.cfi"
+		
+    }
+}
