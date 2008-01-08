@@ -17,15 +17,7 @@ module L3Muons = FastL3MuonProducer {
 	InputTag SimulatedMuons = "famosSimHits:MuonSimTracks"
 	
 	string TkTrackBuilder = "muonCkfTrajectoryBuilder"
-#	string TkTrackBuilder = "muonRSTrajectoryBuilder"
-	
-       # include  "RecoMuon/TrackerSeedGenerator/data/TSGFromPixelPairs.cfi"
-       #include  "RecoMuon/TrackerSeedGenerator/data/TSGFromMixedPairs.cfi"
-       #include  "RecoMuon/TrackerSeedGenerator/data/TSGSmart.cff"
-       #include  "RecoMuon/TrackerSeedGenerator/data/TSGFromPropagation.cfi"
-       #include  "RecoMuon/TrackerSeedGenerator/data/TSGFromPixelTriplets.cfi"
-       #include  "RecoMuon/TrackerSeedGenerator/data/TSGForRoadSearchIO.cfi"
-       #include  "RecoMuon/TrackerSeedGenerator/data/TSGForRoadSearchOI.cfi"
-		
+
     }
+
 }
