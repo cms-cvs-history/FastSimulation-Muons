@@ -13,8 +13,8 @@ module L3Muons = FastL3MuonProducer {
 	bool TkTrajectoryAvailable = true
 	string KFFitter = "L3MuKFFitter"
 
-	InputTag TrackerTrajectories = "GlobalPixelGSWithMaterialTracks"
-	InputTag SimulatedMuons = "famosSimHits:MuonSimTracks"
+	InputTag TrackerTrajectories = GlobalPixelGSWithMaterialTracks
+	InputTag SimulatedMuons = famosSimHits:MuonSimTracks
 	
 	string TkTrackBuilder = "muonCkfTrajectoryBuilder"
 

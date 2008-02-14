@@ -8,7 +8,7 @@ module l1ParamMuons = FastL1MuonProducer {
     PSet MUONS = {	
 
 	// The muon simtrack's must be taken from there
-	InputTag simModule = "famosSimHits:MuonSimTracks"
+	InputTag simModule = famosSimHits:MuonSimTracks
 	
 	// Simulate  only simtracks in this eta range
 	double MinEta = -2.4
