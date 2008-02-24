@@ -15,7 +15,6 @@ module L3Muons = FastL3MuonProducer {
     PSet L3TrajBuilderParameters = {
 	using GlobalTrajectoryBuilderCommon
 	
-	bool TkTrajectoryAvailable = true
 	string KFFitter = "L3MuKFFitter"
 
 	InputTag TrackerTrajectories = GlobalPixelGSWithMaterialTracks
