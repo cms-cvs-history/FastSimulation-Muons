@@ -35,3 +35,6 @@ es_module L3MuKFSmoother = KFTrajectorySmootherESProducer
 }
 
 include "FastSimulation/Muons/data/L3Muons.cfi"
+
+# No use of Runge-Kutta propagator for tracks
+replace SmartPropagatorAny.TrackerPropagator = "PropagatorWithMaterial"

@@ -10,8 +10,8 @@
  *   in the muon system and the tracker.
  *
  *
- *  $Date: 2008/02/14 12:34:38 $
- *  $Revision: 1.4 $
+ *  $Date: 2008/03/14 19:23:27 $
+ *  $Revision: 1.4.2.1 $
  *
  *  Authors :
  *  Patrick Janot - CERN
@@ -68,6 +68,12 @@ FastL3MuonTrajectoryBuilder::FastL3MuonTrajectoryBuilder(const edm::ParameterSet
   theTrackerTrajectoryCollection = par.getParameter<edm::InputTag>("TrackerTrajectories");
   theSimModule = par.getParameter<edm::InputTag>("SimulatedMuons");
 
+#ifdef FAMOS_DEBUG
+  dbe = edm::Service<DaqMonitorBEInterface>().operator->();
+  simuMuons = dbe->book1D("SimuMuons", "Eta distribution (sim)",100,-2.5,2.5);
+  matchMuons = dbe->book1D("MatchMuons", "Eta distribution (match)",100,-2.5,2.5);
+  refitMuons = dbe->book1D("RefitMuons", "Eta distribution (refit)",100,-2.5,2.5);
+#endif
   //
   // start seed generator;
   //
@@ -83,6 +89,9 @@ FastL3MuonTrajectoryBuilder::FastL3MuonTrajectoryBuilder(const edm::ParameterSet
 
 FastL3MuonTrajectoryBuilder::~FastL3MuonTrajectoryBuilder() {
   if (theTrajectoryCleaner) delete theTrajectoryCleaner;
+#ifdef FAMOS_DEBUG
+  dbe->save("test.root");
+#endif
 }
 
 //
@@ -120,6 +129,7 @@ FastL3MuonTrajectoryBuilder::trajectories(const TrackCand& staCandIn) {
   
   // match tracker tracks to muon track
   std::vector<TrackCand> trackerTracks = trackMatcher()->match(staCand, regionalTkTracks);
+
   // edm::LogInfo(category) << "Found " << trackerTracks.size() << " matching tracker tracks within region of interest";
   if ( trackerTracks.empty() ) return CandidateContainer();
   
@@ -138,6 +148,10 @@ FastL3MuonTrajectoryBuilder::trajectories(const TrackCand& staCandIn) {
       
       MuonCandidate* muonCand = new MuonCandidate( 0 ,staCand.second,(*tkt).second, new Trajectory(refittedTkTraj));
       tkTrajs.push_back(muonCand);
+#ifdef FAMOS_DEBUG
+      if ( muonCand->muonTrack()->innerMomentum().Perp2() > 400. ) 
+	matchMuons->Fill(muonCand->muonTrack()->innerMomentum().Eta());
+#endif
       // LogTrace(category) << "tpush";
 
     }
@@ -149,6 +163,13 @@ FastL3MuonTrajectoryBuilder::trajectories(const TrackCand& staCandIn) {
   }
   
   CandidateContainer result = build(staCand, tkTrajs);  
+#ifdef FAMOS_DEBUG
+  if ( result.size() > 0 ) { 
+    CandidateContainer::const_iterator muonIt = result.begin();
+    if ((*muonIt)->muonTrack()->innerMomentum().Perp2() > 400. ) 
+      refitMuons->Fill((*muonIt)->muonTrack()->innerMomentum().Eta());
+  }
+#endif
   // edm::LogInfo(category) << "Found "<< result.size() << " L3Muons from one L2Cand";
 
   // free memory
@@ -193,6 +214,9 @@ FastL3MuonTrajectoryBuilder::makeTkCandCollection(const TrackCand& staCand) cons
   // Loop on simulated muons
   for ( unsigned amuon=0; amuon<nmuons; ++amuon ) {
     const SimTrack& simTrack = (*simMuons)[amuon];
+#ifdef FAMOS_DEBUG
+    if ( simTrack.momentum().Pt() > 10. ) simuMuons->Fill(simTrack.momentum().Eta());
+#endif
 
     for ( anAssociation = firstAssociation; anAssociation != lastAssociation; ++anAssociation ) { 
       edm::Ref<std::vector<Trajectory> > aTrajectoryRef = anAssociation->key;
