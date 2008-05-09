@@ -15,11 +15,11 @@ module L3Muons = FastL3MuonProducer {
 	using GlobalTrajectoryBuilderCommon
 	
 	string KFFitter = "L3MuKFFitter"
-	string StateOnTrackerBoundOutPropagator = "SmartPropagator"
+	string OutPropagator = "SmartPropagator"
 
 //	InputTag tkTrajLabel = hltL3Trajectory
 //	InputTag l3SeedLabel = hltL3TrajectorySeedFromL2
-	InputTag TrackerTrajectories = GlobalPixelGSWithMaterialTracks
+	InputTag TrackerTrajectories = GlobalPixelWithMaterialTracks
 	InputTag SimulatedMuons = famosSimHits:MuonSimTracks
 	
 	string TkTrackBuilder = "muonCkfTrajectoryBuilder"
