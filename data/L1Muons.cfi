@@ -1,9 +1,5 @@
 module l1ParamMuons = FastL1MuonProducer {
 
-    # Set the following to false if you want to use the default CLHEP
-    # random engine
-    bool UseTRandomEngine = true
-    
     # Muons
     PSet MUONS = {	
 
