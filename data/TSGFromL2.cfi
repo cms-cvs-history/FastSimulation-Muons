@@ -1,0 +1,34 @@
+include "RecoMuon/GlobalTrackingTools/data/MuonTrackingRegionCommon.cff"
+include "RecoMuon/TrackingTools/data/MuonServiceProxy.cff"
+include "RecoMuon/TrackingTools/data/MuonErrorMatrixValues.cff"
+include "RecoMuon/TrackerSeedGenerator/data/TrackerSeedCleaner.cff"
+// include  "RecoMuon/TrackerSeedGenerator/data/TSGs.cff"
+
+module hltL3TrajectorySeed = FastTSGFromL2Muon {
+
+    // The STA muons for which seeds are looked for in the tracker
+    InputTag MuonCollectionLabel = hltL2Muons:UpdatedAtVtx
+
+    // The Tracks from which seeds are looked for
+    VInputTag SeedCollectionLabels = { 
+	pixelTripletSeeds:PixelTriplet, 
+	globalPixelSeeds:GlobalPixel
+    }
+
+    // The collection of Sim Tracks
+    InputTag SimTrackCollectionLabel = famosSimHits
+
+    // Keep tracks with pT > 1 GeV 
+    double PtCut = 1.0
+
+    // ServiceParameters
+    using MuonServiceProxy
+
+    //using TrackerSeedCleanerCommon
+    PSet MuonTrackingRegionBuilder = {
+	using block_hltL3TrajectorySeed   
+    }
+
+    # untracked bool UseTFileService = false
+
+}

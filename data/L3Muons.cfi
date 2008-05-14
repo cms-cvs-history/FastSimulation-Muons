@@ -20,7 +20,6 @@ module L3Muons = FastL3MuonProducer {
 //	InputTag tkTrajLabel = hltL3Trajectory
 //	InputTag l3SeedLabel = hltL3TrajectorySeedFromL2
 	InputTag TrackerTrajectories = GlobalPixelWithMaterialTracks
-	InputTag SimulatedMuons = famosSimHits:MuonSimTracks
 	
 	string TkTrackBuilder = "muonCkfTrajectoryBuilder"
 
