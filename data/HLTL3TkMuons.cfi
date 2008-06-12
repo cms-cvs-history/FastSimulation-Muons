@@ -1,8 +1,0 @@
-module hltL3TkMuons = 
-  ctfWithMaterialTracks from "RecoTracker/TrackProducer/data/CTFFinalFitWithMaterial.cfi"
-
-replace hltL3TkMuons.src = hltL3CandidateFromL2
-replace hltL3TkMuons.TTRHBuilder = "WithoutRefit"
-replace hltL3TkMuons.Fitter = "KFFittingSmoother"
-replace hltL3TkMuons.Propagator = "PropagatorWithMaterial"
-replace hltL3TkMuons.beamSpot = offlineBeamSpot
