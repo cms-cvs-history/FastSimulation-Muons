@@ -464,6 +464,8 @@ FastL1MuonProducer::beginJob(const edm::EventSetup& es)
   es.get<MuonGeometryRecord>().get(dtGeometry);
 // Get the CSC Geometry
   es.get<MuonGeometryRecord>().get(cscGeometry);
+// Get the RPC Geometry
+  es.get<MuonGeometryRecord>().get(rpcGeometry);
 
 }
 
